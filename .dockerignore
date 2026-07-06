@@ -1,0 +1,13 @@
+node_modules
+npm-debug.log
+.DS_Store
+dist
+build
+.env
+.venv
+venv/
+env/
+__pycache__
+*.pyc
+.pytest_cache
+backend/vector_store_data/
