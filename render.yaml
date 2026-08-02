@@ -1,0 +1,38 @@
+services:
+  # -------------------- Backend Web Service --------------------
+  - type: web
+    name: multi-agentic-rag-backend
+    runtime: docker
+    dockerfilePath: Dockerfile.backend
+    context: .
+    plan: free
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GOOGLE_API_KEY
+        sync: false
+      - key: GOOGLE_CSE_ID
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: PINECONE_API_KEY
+        sync: false
+      - key: PINECONE_INDEX_NAME
+        value: multi-agentic-rag
+
+  # -------------------- Frontend Static Site --------------------
+  - type: web
+    name: multi-agentic-rag-frontend
+    runtime: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: ./frontend/build
+    envVars:
+      - key: REACT_APP_API_URL
+        fromService:
+          type: web
+          name: multi-agentic-rag-backend
+          property: host
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
