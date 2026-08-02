@@ -2,9 +2,8 @@ services:
   # -------------------- Backend Web Service --------------------
   - type: web
     name: multi-agentic-rag-backend
-    env: docker
+    runtime: docker
     dockerfilePath: Dockerfile.backend
-    context: .
     plan: free
     envVars:
       - key: GEMINI_API_KEY
@@ -23,7 +22,7 @@ services:
   # -------------------- Frontend Static Site --------------------
   - type: web
     name: multi-agentic-rag-frontend
-    env: static
+    runtime: static
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: ./frontend/build
     envVars:
