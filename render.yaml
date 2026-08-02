@@ -28,10 +28,7 @@ services:
     staticPublishPath: ./frontend/build
     envVars:
       - key: REACT_APP_API_URL
-        fromService:
-          type: web
-          name: multi-agentic-rag-backend
-          property: host
+        sync: false
     routes:
       - type: rewrite
         source: /*
